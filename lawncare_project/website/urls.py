@@ -11,5 +11,6 @@ urlpatterns = [
     path('blog_single/', views.blog_single , name = 'blog_single'),
     path('gallery/', views.gallery , name = 'gallery'),
     path('service/', views.service , name = 'service'),
+    path('newsletter_post/', views.newletter , name = 'newsletterpost'),
     # path('post-newletters/', views.newletter , name = 'newletterspost'),
 ]

@@ -30,6 +30,7 @@ class About(BaseField):
     
     image = models.FileField(upload_to='images')
     option = models.ManyToManyField("website.OptionAbout", verbose_name=("option_about"), related_name='optionabout')
+    lien = models.URLField(max_length=200)
     
     class Meta:
         verbose_name = 'About'
@@ -91,13 +92,9 @@ class Sociaux(BaseField):
 class WebSite(BaseField):
     
     nom_site = models.CharField(max_length=255)
-    title_about = models.CharField(max_length=255)
-    title_saison = models.CharField(max_length=255)
-    title_service = models.CharField(max_length=255)
-    title_testimonial = models.CharField(max_length=255)
-    title_blog = models.CharField(max_length=255)
     description_about = models.TextField()
-    description_saison = models.TextField()
+    description_contact = models.TextField()
+    description_service = models.TextField()
     title_contact = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
     email =models.CharField(max_length=255)

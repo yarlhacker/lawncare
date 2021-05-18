@@ -42,7 +42,7 @@ class Galery(BaseField):
 
 class Blog(BaseField):
     
-    galery = models.ForeignKey("service.Galery", verbose_name=("gallery_blog"), on_delete=models.CASCADE,related_name='galleryblog')
+    image = models.FileField(upload_to='images')
     subtitle = models.CharField(max_length=50)
     description = models.TextField()
     
@@ -56,7 +56,6 @@ class Blog(BaseField):
 
 class Contact(BaseField):
     
-    image = models.FileField( upload_to='images')
     nom = models.CharField(max_length=250)
     email = models.EmailField(max_length=254)
     sujet = models.CharField(max_length=50)

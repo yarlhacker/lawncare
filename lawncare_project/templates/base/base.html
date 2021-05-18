@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     
@@ -29,9 +30,11 @@
 			<div class="row justify-content-between">
 				<div class="col-md-8 order-md-last">
 					<div class="row">
+                    {% for website in websites %}
 						<div class="col-md-6 text-center">
-							<a class="navbar-brand" href="index.html">Lawn<span>Care</span></a>
+							<a class="navbar-brand" href="{% url 'index' %}">{{website.nom_site|safe}}</a>
 						</div>
+                    {% endfor %}
 						<div class="col-md-6 d-md-flex justify-content-end mb-md-0 mb-3">
 							<form action="#" class="searchform order-lg-last">
 			          <div class="form-group d-flex">
@@ -45,10 +48,12 @@
 				<div class="col-md-4 d-flex">
 					<div class="social-media">
 		    		<p class="mb-0 d-flex">
-		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
-		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+                    {% for social in sociaux %}
+		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="{{social.icon}}"><i class="sr-only">{{social.lien}}</i></span></a>
+                    {% endfor %}
+		    			{% comment %} <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
 		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
-		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+		    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a> {% endcomment %}
 		    		</p>
 	        </div>
 				</div>
@@ -73,18 +78,47 @@
 	    </div>
 	  </nav>
     <!-- END nav -->
+  
+
     {% block contente %}
     
     
     {% endblock contente %}
+
+<section class="ftco-section ftco-no-pt ftco-no-pb bg-primary">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+        	<div class="col-lg-8 py-4">
+        		<div class="row">
+		          <div class="col-md-6 ftco-animate d-flex align-items-center">
+		            <h2 class="mb-0" style="color:white; font-size: 24px;">Subcribe to our Newsletter</h2>
+		          </div>
+		          <div class="col-md-6 d-flex align-items-center">
+		            <form  method="POST" action="{% url 'newsletterpost' %}">
+                      {% csrf_token %}
+		              <div class="form-group d-flex">
+		                <input type="text" class="form-control" placeholder="Enter email address" name='email' >
+		                <input type="submit" value="Subscribe" class="submit px-3">
+		              </div>
+		            </form>
+		          </div>
+	          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-6 col-lg">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="logo"><a href="#">Lawn <span>Care</span></a></h2>
+                {% for website in websites %}
+                    <h2 class="logo"><a href="#">{{website.nom_site|safe}}</a></h2>
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                {% endfor %}
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                     <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                     <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -164,6 +198,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>

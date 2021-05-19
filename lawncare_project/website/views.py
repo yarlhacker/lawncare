@@ -19,6 +19,7 @@ def index(request):
     testimonials = models.Testimonial.objects.filter(status=True)
     websites = models.WebSite.objects.filter(status=True)
     sociaux = models.Sociaux.objects.filter(status=True)
+    blogs = models_service.Blog.objects.filter(status=True)
     return render(request,'index.html',locals())
 
 def about(request):

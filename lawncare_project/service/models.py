@@ -43,15 +43,22 @@ class Galery(BaseField):
 class Blog(BaseField):
     
     image = models.FileField(upload_to='images')
-    subtitle = models.CharField(max_length=50)
-    description = models.TextField()
+    title =  models.CharField(max_length=255 , blank=True , null=True )
+    subtitle = models.CharField(max_length=250, blank=True , null=True)
+    description = models.TextField(blank=True , null=True)
+    image2 = models.FileField(upload_to='images', blank=True , null=True)
+    title2 =  models.CharField(max_length=255, blank=True , null=True)
+    subtitle2 = models.CharField(max_length=50, blank=True , null=True)
+    description2 = models.TextField( blank=True , null=True)
+    paragraph = models.TextField(blank=True , null=True)
+  
     
     class Meta:
         verbose_name = 'blog'
         verbose_name_plural = 'blogs'
 
     def __str__(self):
-        return self.subtitle
+        return self.title
 
 
 class Contact(BaseField):

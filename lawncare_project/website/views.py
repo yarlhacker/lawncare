@@ -1,10 +1,11 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from . import models
 from service import models as models_service
 from django.contrib import messages
 
 
 def newletter(request):
+    
     newletter = request.POST.get('email')
     models.Newsletter.objects.create(email = newletter) # Pour enegister dans la base de donner
     retour = request.META.get('HTTP_REFERER')# Pour rediriger sur la meme page
@@ -19,7 +20,7 @@ def index(request):
     testimonials = models.Testimonial.objects.filter(status=True)
     websites = models.WebSite.objects.filter(status=True)
     sociaux = models.Sociaux.objects.filter(status=True)
-    blogs = models_service.Blog.objects.filter(status=True)
+    blogs = models_service.Blog.objects.filter(status=True).order_by('-creat_at')[:3]
     return render(request,'index.html',locals())
 
 def about(request):
@@ -27,9 +28,12 @@ def about(request):
     sociaux = models.Sociaux.objects.filter(status=True)
     return render(request,'about.html',locals())
 
-def blog_single(request):
+def blog_single(request,id):
     websites = models.WebSite.objects.filter(status=True)
     sociaux = models.Sociaux.objects.filter(status=True)
+    blogs = models_service.Blog.objects.filter(status=True).order_by('-creat_at')[:3]
+    blog = get_object_or_404(models_service.Blog, id=id)
+    prestations = models_service.Prestation.objects.filter(status=True)
     return render(request,'blog-single.html',locals())
 
 def blog(request):
@@ -49,6 +53,7 @@ def contact(request):
     websites = models.WebSite.objects.filter(status=True)
     sociaux = models.Sociaux.objects.filter(status=True)
     if request.method == 'POST':
+
         new_contact = models_service.Contact(
             nom = request.POST['name'],
             email = request.POST['email'],
